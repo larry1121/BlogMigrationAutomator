@@ -5,6 +5,7 @@ from generateCardnewsTitleImageByUrl import generateCardnewsTitleImageByUrl
 from getBlogHTMLContent import getBlogHTMLContent
 from getBlogMetaInfo import getBlogMetaInfo
 from translateHTML import translate_html
+from uploadToWordpress import uploadToWordpress
 
 
 
@@ -18,9 +19,10 @@ def BlogMigrationAutoamtor(blog_url):
 
 
 
-  uploadToWordpress
+  uploadToWordpress(blog_url,translated_html)
 
 
 
 if __name__ == "__main__":
     test_url ="https://giftedmbti.tistory.com/167"
+    BlogMigrationAutoamtor(test_url)

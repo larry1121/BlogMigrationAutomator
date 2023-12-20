@@ -21,7 +21,8 @@ from getBlogMetaInfo import getBlogMetaInfo
 #   &acceptComment={acceptComment}
 #   &password={password}
 
-def uploadToWordpress(blog_url,translated_html,image):
+# def uploadToWordpress(blog_url,translated_html,image,category_ids,tag_ids,media_id):
+def uploadToWordpress(blog_url,translated_html):
 
 
   load_dotenv(verbose=True)
@@ -34,14 +35,14 @@ def uploadToWordpress(blog_url,translated_html,image):
 
   BlogMetaInfo = getBlogMetaInfo(blog_url)
 
-  slug = BlogMetaInfo.title #슬러그를 입력하세요
+  slug = BlogMetaInfo['title'] #슬러그를 입력하세요
 
-  title = BlogMetaInfo.title #글의 제목
+  title = BlogMetaInfo['title'] #글의 제목
   content = translated_html #본문내용을 적을것. html 로 적으면 된다
 
 
-  category_ids = [22] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
-  tag_ids = [21] #태그아이디도 카테고리 아이디 찾는 방법과 동일
+  category_ids = [1] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
+  tag_ids = [1] #태그아이디도 카테고리 아이디 찾는 방법과 동일
   media_id=None   #이번에는 이미지 업로드를 하지 않을거기 때문에 None 을 입력했습니다. 
   #추후에 이미지를 업로드 하게 된다면 업로드 된 이미지의 아이디를 입력하시면 특성이미지로 설정이 됩니다.
 

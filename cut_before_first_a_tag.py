@@ -95,7 +95,7 @@ inventory
 <script id="adsense_script">(adsbygoogle = window.adsbygoogle || []).push({});</script>
 <script>if(window.ObserveAdsenseUnfilledState !== undefined){ ObserveAdsenseUnfilledState(); }</script>'''
 
-# Process the text
-output_text = cut_before_first_a_tag(input_text)
+# # Process the text
+# output_text = cut_before_first_a_tag(input_text)
 
-print(output_text)
+# print(output_text)
