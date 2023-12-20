@@ -1,3 +1,4 @@
+from googletrans import Translator
 from TistoryCrawler import TistoryCrawler
 
 def getBlogMetaInfo(blog_url):
@@ -7,11 +8,16 @@ def getBlogMetaInfo(blog_url):
 
   site_name = crawler.site_name
   title = crawler.title
+
+  # Google Translate API의 번역기 초기화
+  translator = Translator()
+
   
   BlogMetaInfo = {
-      'site_name': site_name,
-      'title': title
+      'site_name': translator.translate(site_name, dest="en").text,
+      'title': translator.translate(title, dest="en").text
   }
+
 
   return BlogMetaInfo
 

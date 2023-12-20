@@ -9,3 +9,7 @@ def getBlogHTMLContent(blog_url):
   blog_content = crawler.content
   print(blog_content)
   return blog_content
+
+if __name__ == "__main__":
+    test_url ="https://giftedmbti.tistory.com/167"
+    getBlogHTMLContent(test_url)
