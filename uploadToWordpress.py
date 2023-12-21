@@ -6,7 +6,9 @@ from datetime import datetime
 from dotenv import load_dotenv
 
 from getBlogMetaInfo import getBlogMetaInfo
-
+from remove_emoji import remove_emoji
+import config
+from sanitize_filename import sanitize_filename
 # POST https://www.tistory.com/apis/post/write?
 #   access_token={access-token}
 #   &output={output-type}
@@ -38,13 +40,50 @@ def uploadToWordpress(blog_url,translated_html):
   slug = BlogMetaInfo['title'] #슬러그를 입력하세요
 
   title = BlogMetaInfo['title'] #글의 제목
-  content = translated_html #본문내용을 적을것. html 로 적으면 된다
+  
+  
 
 
   category_ids = [1] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
   tag_ids = [1] #태그아이디도 카테고리 아이디 찾는 방법과 동일
-  media_id=None   #이번에는 이미지 업로드를 하지 않을거기 때문에 None 을 입력했습니다. 
-  #추후에 이미지를 업로드 하게 된다면 업로드 된 이미지의 아이디를 입력하시면 특성이미지로 설정이 됩니다.
+  
+  ImageCount = 0
+  post_title = remove_emoji(str(BlogMetaInfo['title']))
+  ImageName = f"{post_title}_{ImageCount}"
+  filename=f"{ImageName}.jpg"  #이미지 파일이름
+  folder_path=os.path.join(config.save_dir_path, f"{sanitize_filename(post_title)}")
+  filepath=os.path.join(folder_path, filename)  # Save as JPG format
+
+  url = urljoin(WP_URL, '/wp-json/wp/v2/media/')  
+  f = open(filepath, 'rb')
+  image_data = f.read()
+  f.close()
+  espSequence = bytes(filename, "utf-8").decode("unicode_escape")  
+
+  headers = {
+    'Content-Type': 'image/png',
+    'Content-Disposition': 'attachment; filename=%s' % espSequence,                                 
+}
+  res2 = requests.post(
+    url,
+    data=image_data,
+    headers=headers,
+    auth=(WP_USERNAME, WP_PASSWORD),
+    )
+  media_info = res2.json()
+
+  media_id = media_info['id'] 
+  media_url = media_info['source_url'] 
+
+  img_contents = f'''[caption id="attachment_{media_id}" align="aligncenter" width="500"]<img class="size-full wp-image-{media_id}" src="{media_url}" alt="{title}" width="500" height="500"> {title}[/caption]
+<p>&nbsp;</p><br />
+<p>&nbsp;</p>
+'''
+
+
+  content = img_contents + translated_html  #본문내용을 적을것. html 로 적으면 된다
+
+
 
 #===============================================================
 #===============================================================
