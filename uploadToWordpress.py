@@ -24,6 +24,9 @@ from sanitize_filename import sanitize_filename
 #   &password={password}
 
 # def uploadToWordpress(blog_url,translated_html,image,category_ids,tag_ids,media_id):
+
+#카테고리,태그 커스텀/url유효성검사
+
 def uploadToWordpress(blog_url,translated_html):
 
 
