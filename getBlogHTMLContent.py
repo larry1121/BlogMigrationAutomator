@@ -7,7 +7,7 @@ def getBlogHTMLContent(blog_url):
 
   # 블로그 글 내용 출력
   blog_content = crawler.content
-  print(blog_content)
+
   return blog_content
 
 if __name__ == "__main__":

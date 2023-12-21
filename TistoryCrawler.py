@@ -42,4 +42,3 @@ if __name__ == "__main__":
 
     # 블로그 글 내용 출력
     blog_content = crawler.content
-    print(blog_content)

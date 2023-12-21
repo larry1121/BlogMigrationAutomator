@@ -47,12 +47,12 @@ def uploadToWordpress(blog_url,translated_html):
   
 
 
-  category_ids = [1] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
-  tag_ids = [1] #태그아이디도 카테고리 아이디 찾는 방법과 동일
+  category_ids = [3] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
+  tag_ids = [3] #태그아이디도 카테고리 아이디 찾는 방법과 동일
   
   ImageCount = 0
   post_title = remove_emoji(str(BlogMetaInfo['title']))
-  ImageName = f"{post_title}_{ImageCount}"
+  ImageName = f"{sanitize_filename(post_title)}_{ImageCount}"
   filename=f"{ImageName}.jpg"  #이미지 파일이름
   folder_path=os.path.join(config.save_dir_path, f"{sanitize_filename(post_title)}")
   filepath=os.path.join(folder_path, filename)  # Save as JPG format
@@ -110,6 +110,6 @@ def uploadToWordpress(blog_url,translated_html):
                     auth=(user_, pass_))
 
   if res.ok:
-      print("성공 code:{res.status_code}")    
+      print(f"성공 code:{res.status_code}")    
   else:
       print(f"실패 code:{res.status_code} reason:{res.reason} msg:{res.text}")

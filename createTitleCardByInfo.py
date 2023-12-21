@@ -9,7 +9,7 @@ def calculate_font_size(font_path, text, max_size, min_size):
     font_size = max_size
     font = ImageFont.truetype(font_path, font_size)
     text_width, _ = font.getsize(text)
-    while font_size > min_size and text_width < 0.8 * IMAGE_SIZE[0]:
+    while font_size > min_size and text_width < 0.9 * IMAGE_SIZE[0]:
         font_size -= 1
         font = ImageFont.truetype(font_path, font_size)
         text_width, _ = font.getsize(text)
@@ -24,8 +24,8 @@ def createTitleCardByInfo(BlogMetaInfo):
     background_color = BACKGROUND_COLOR
     font_path = FONT_PATH
 
-    min_font_size = 80
-    max_font_size = 150
+    min_font_size = 60
+    max_font_size = 120
     text_color = TEXT_COLOR
 
     # 블로그 이름과 글의 제목
@@ -91,7 +91,7 @@ def createTitleCardByInfo(BlogMetaInfo):
 
         filename = os.path.join(directory_path, f"{post_title_sanitized}_0.jpg")
         image.save(filename, format="JPEG")
-        print(f"Title Image : {post_title_sanitized}.jpg 저장 완료\n\n")
+        print(f"Title Image : {post_title_sanitized}_0.jpg 저장 완료\n\n")
     except OSError as e:
         print(f"파일 저장 오류: {e} ,cwd : {os.getcwd()}")
         
