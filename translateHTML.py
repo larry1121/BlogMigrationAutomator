@@ -110,6 +110,6 @@ html_doc = """
 """
 
 # HTML 문서 번역
-translated_html = translate_html(html_doc)
+#translated_html = translate_html(html_doc)
 
-print(translated_html)
+#print(translated_html)
