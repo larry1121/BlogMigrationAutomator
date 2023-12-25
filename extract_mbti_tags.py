@@ -1,4 +1,4 @@
-import tag_dict
+from tag_dict import tag_dict 
 
 
 def extract_mbti_tags(html_contents):

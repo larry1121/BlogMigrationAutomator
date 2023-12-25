@@ -1,4 +1,4 @@
-import tag_dict
+from tag_dict import tag_dict 
 
 
 def get_affiliate_text_by_info(title, tag_ids):
