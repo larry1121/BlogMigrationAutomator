@@ -5,39 +5,38 @@ from remove_emoji import remove_emoji
 from config import BORDER_COLOR, BORDER_WIDTH, DEST_LANG,  IMAGE_SIZE, FONT_PATH, TEXT_COLOR, BACKGROUND_COLOR, TITLE_BLOG_NAME_FONT_SIZE
 from sanitize_filename import sanitize_filename
 
-def calculate_font_size(font_path, text, max_size, min_size):
-    global DEST_LANG
+from PIL import ImageFont
+from PIL import ImageFont
+
+def calculate_font_size(font_path, text, max_size, min_size, image_size):
     font_size = max_size
     font = ImageFont.truetype(font_path, font_size)
     text_width, _ = font.getsize(text)
-    while font_size > min_size and text_width > 0.9 * IMAGE_SIZE[0]:
+
+    # Adjust font size to fit the width of the image
+    while font_size > min_size and text_width > 0.9 * image_size[0]:
         font_size -= 1
         font = ImageFont.truetype(font_path, font_size)
         text_width, _ = font.getsize(text)
 
-    if DEST_LANG == "ja":  # 일본어의 경우 한 글자씩 줄바꿈
-        font_size = max_size -60
-        font = ImageFont.truetype(font_path, font_size)
-        lines = []
-        current_line = ""
-        for char in text:
-            test_line = current_line + char if current_line else char
-            test_width, _ = font.getsize(test_line)
-            if test_width <= 0.9 * IMAGE_SIZE[0]:
-                current_line = test_line
-            else:
-                lines.append(current_line)
-                current_line = char
-        if current_line:
-            lines.append(current_line)
-        
-        text_width, text_height = font.getsize(lines[0])
-        while font_size > min_size and text_height * len(lines) > 0.9 * IMAGE_SIZE[1]:
-            font_size -= 1
-            font = ImageFont.truetype(font_path, font_size)
-            text_width, text_height = font.getsize(lines[0])
+        # if DEST_LANG == "ja":
+        #       # Special handling for Japanese text
+        #     lines = []
+        #     for char in text:
+        #         if lines and font.getsize(lines[-1] + char)[0] <= 0.9 * image_size[0]:
+        #             lines[-1] += char
+        #         else:
+        #             lines.append(char)
+
+        #     # Adjust font size to fit the height of the image
+        #     text_height = font.getsize(lines[0])[1]
+        #     while font_size > min_size and text_height * len(lines) > 0.9 * image_size[1]:
+        #         font_size -= 1
+        #         font = ImageFont.truetype(font_path, font_size)
+        #         text_height = font.getsize(lines[0])[1]
 
     return font, font_size
+
 
 def createTitleCardByInfo(BlogMetaInfo):
     post_title = remove_emoji(str(BlogMetaInfo['title']))
@@ -63,7 +62,7 @@ def createTitleCardByInfo(BlogMetaInfo):
     image = Image.new("RGB", size, background_color)
 
     # 제목 글자 크기 계산
-    font, font_size = calculate_font_size(font_path, post_title, max_font_size, min_font_size)
+    font, font_size = calculate_font_size(font_path, post_title, max_font_size, min_font_size,IMAGE_SIZE)
     text_width, text_height = font.getsize(post_title)
 
     # 텍스트를 여러 줄로 분할
