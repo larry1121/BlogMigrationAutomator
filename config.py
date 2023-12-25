@@ -24,10 +24,15 @@ def set_save_path(save_path):
 
 
 
+if DEST_LANG == "ja":
+    FONT_PATH = os.path.join(bundle_dir, 'NotoSansJP-Regular.ttf')
+elif DEST_LANG == "en":
+    FONT_PATH = os.path.join(bundle_dir, 'NotoSans-Regular.ttf')
+else:
+    # 다른 언어에 대한 처리를 추가하려면 여기에 추가 코드 작성
+    raise ValueError("Unsupported DEST_LANG: {}".format(DEST_LANG))
 
-# write ttf file name here
-FONT_PATH = os.path.join(bundle_dir, 'NotoSans-Regular.ttf')
-
+# FONT_PATH를 사용하여 필요한 작업을 수행
 
 IMAGE_SIZE = (1080, 1080)  # Instagram card news size
 BACKGROUND_COLOR = (255, 220, 220)  # 연한 핑크색

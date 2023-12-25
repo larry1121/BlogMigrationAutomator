@@ -2,17 +2,41 @@ from PIL import Image, ImageDraw, ImageFont
 import os
 import config
 from remove_emoji import remove_emoji
-from config import BORDER_COLOR, BORDER_WIDTH,  IMAGE_SIZE, FONT_PATH, TEXT_COLOR, BACKGROUND_COLOR, TITLE_BLOG_NAME_FONT_SIZE
+from config import BORDER_COLOR, BORDER_WIDTH, DEST_LANG,  IMAGE_SIZE, FONT_PATH, TEXT_COLOR, BACKGROUND_COLOR, TITLE_BLOG_NAME_FONT_SIZE
 from sanitize_filename import sanitize_filename
 
 def calculate_font_size(font_path, text, max_size, min_size):
+    global DEST_LANG
     font_size = max_size
     font = ImageFont.truetype(font_path, font_size)
     text_width, _ = font.getsize(text)
-    while font_size > min_size and text_width < 0.9 * IMAGE_SIZE[0]:
+    while font_size > min_size and text_width > 0.9 * IMAGE_SIZE[0]:
         font_size -= 1
         font = ImageFont.truetype(font_path, font_size)
         text_width, _ = font.getsize(text)
+
+    if DEST_LANG == "ja":  # 일본어의 경우 한 글자씩 줄바꿈
+        font_size = max_size -60
+        font = ImageFont.truetype(font_path, font_size)
+        lines = []
+        current_line = ""
+        for char in text:
+            test_line = current_line + char if current_line else char
+            test_width, _ = font.getsize(test_line)
+            if test_width <= 0.9 * IMAGE_SIZE[0]:
+                current_line = test_line
+            else:
+                lines.append(current_line)
+                current_line = char
+        if current_line:
+            lines.append(current_line)
+        
+        text_width, text_height = font.getsize(lines[0])
+        while font_size > min_size and text_height * len(lines) > 0.9 * IMAGE_SIZE[1]:
+            font_size -= 1
+            font = ImageFont.truetype(font_path, font_size)
+            text_width, text_height = font.getsize(lines[0])
+
     return font, font_size
 
 def createTitleCardByInfo(BlogMetaInfo):
