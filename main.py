@@ -2,6 +2,7 @@ import os
 import logging
 import requests
 from urllib.parse import urlparse
+from config import DEST_LANG
 
 # 기존에 정의된 외부 함수들의 임포트
 from cut_before_first_a_tag import cut_before_first_a_tag
@@ -38,7 +39,7 @@ def blog_migration_automator(blog_url):
 
     try:
         blog_content = getBlogHTMLContent(blog_url)
-        translated_html = translate_html(cut_before_first_a_tag(blog_content))
+        translated_html = translate_html(cut_before_first_a_tag(blog_content),DEST_LANG)
         generateCardnewsTitleImageByUrl(blog_url)
         uploadToWordpress(blog_url, translated_html)
     except Exception as e:

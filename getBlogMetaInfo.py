@@ -1,5 +1,6 @@
 from googletrans import Translator
 from TistoryCrawler import TistoryCrawler
+from config import DEST_LANG
 
 def getBlogMetaInfo(blog_url):
 
@@ -14,8 +15,8 @@ def getBlogMetaInfo(blog_url):
 
   
   BlogMetaInfo = {
-      'site_name': translator.translate(site_name, dest="en").text,
-      'title': translator.translate(title, dest="en").text
+      'site_name': translator.translate(site_name, DEST_LANG).text,
+      'title': translator.translate(title, DEST_LANG).text
   }
 
 

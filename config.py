@@ -1,6 +1,8 @@
 # OpenAI(not yet)
 OPENAI_API_KEY = 'sk-'
 
+DEST_LANG="ja"
+
 import os
 import sys
 
@@ -24,7 +26,7 @@ def set_save_path(save_path):
 
 
 # write ttf file name here
-FONT_PATH = os.path.join(bundle_dir, 'THE소녀감성.ttf')
+FONT_PATH = os.path.join(bundle_dir, 'NotoSans-Regular.ttf')
 
 
 IMAGE_SIZE = (1080, 1080)  # Instagram card news size
