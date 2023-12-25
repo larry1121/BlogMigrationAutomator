@@ -4,8 +4,10 @@ import requests
 from urllib.parse import urljoin
 from datetime import datetime
 from dotenv import load_dotenv
+from extract_mbti_tags import extract_mbti_tags
 
 from getBlogMetaInfo import getBlogMetaInfo
+from get_affiliate_text_by_url import get_affiliate_text_by_info
 from remove_emoji import remove_emoji
 import config
 from sanitize_filename import sanitize_filename
@@ -48,7 +50,7 @@ def uploadToWordpress(blog_url,translated_html):
 
 
   category_ids = [3] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
-  tag_ids = [3] #태그아이디도 카테고리 아이디 찾는 방법과 동일
+  tag_ids = extract_mbti_tags(translated_html) #태그아이디도 카테고리 아이디 찾는 방법과 동일
   
   ImageCount = 0
   post_title = remove_emoji(str(BlogMetaInfo['title']))
@@ -83,8 +85,9 @@ def uploadToWordpress(blog_url,translated_html):
 <p>&nbsp;</p>
 '''
 
+  affiliate_text = get_affiliate_text_by_info(title,tag_ids)
 
-  content = img_contents + translated_html  #본문내용을 적을것. html 로 적으면 된다
+  content = img_contents + translated_html + affiliate_text  #본문내용을 적을것. html 로 적으면 된다
 
 
 
