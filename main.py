@@ -46,14 +46,15 @@ def blog_migration_automator(blog_url):
         logging.error(f"Error during blog migration: {str(e)}")
 
 if __name__ == "__main__":
-    # test_url = "https://giftedmbti.tistory.com/54"
-    # blog_migration_automator(test_url)
-    for i in range(72, 73):
-      url = f"https://giftedmbti.tistory.com/{i}"
-      blog_migration_automator(url)
+    test_url = "https://giftedmbti.tistory.com/54"
+    blog_migration_automator(test_url)
+
+    # for i in range(72, 73):
+    #   url = f"https://giftedmbti.tistory.com/{i}"
+    #   blog_migration_automator(url)
 
 
-# https://giftedmbti.tistory.com/41
+# 
 # https://giftedmbti.tistory.com/70
 
 # https://giftedmbti.tistory.com/150
