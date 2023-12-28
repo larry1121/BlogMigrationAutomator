@@ -64,6 +64,8 @@ def createTitleCardByInfo(BlogMetaInfo):
     # 제목 글자 크기 계산
     font, font_size = calculate_font_size(font_path, post_title, max_font_size, min_font_size,IMAGE_SIZE)
     text_width, text_height = font.getsize(post_title)
+    
+
 
     # 텍스트를 여러 줄로 분할
     text_lines = []
@@ -80,6 +82,7 @@ def createTitleCardByInfo(BlogMetaInfo):
             current_line = word
     if current_line:
         text_lines.append(current_line)
+    # 기능 분할 필요
 
     # 왼쪽 상단의 블로그 이름의 폰트 크기 적용
     blog_font = ImageFont.truetype(font_path, blogname_font_size)
