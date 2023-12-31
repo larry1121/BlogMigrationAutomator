@@ -41,6 +41,8 @@ def blog_migration_automator(blog_url):
         logging.info("------------------------------------------------------------------------------------------------")
         logging.info(f"Processing blog migration for URL: {blog_url}")
 
+        start_time = time.time()  # 함수 시작 시간 기록
+
         # 블로그 컨텐츠 가져오기
         logging.info("Getting blog content...")
         blog_content = getBlogHTMLContent(blog_url)
@@ -57,24 +59,36 @@ def blog_migration_automator(blog_url):
         logging.info("Uploading to WordPress...")
         uploadToWordpress(blog_url, translated_html)
 
-        logging.info("Blog migration completed successfully.")
+        end_time = time.time()  # 함수 종료 시간 기록
+        elapsed_time = end_time - start_time
+        logging.info(f"Blog migration completed successfully. Elapsed Time: {elapsed_time:.2f} seconds")
     except Exception as e:
         logging.error(f"Error during blog migration: {str(e)}")
 
-import time
+# 나머지 코드는 그대로 유지
 
 import time
+
+# ...
 
 if __name__ == "__main__":
     max_attempts = 3  # 최대 시도 횟수 설정
     failed_urls = []
+    success_count = 0
 
-    for i in range(1, 101):
+    total_blogs = 98  # 전체 블로그 수 (수동으로 설정하거나 동적으로 가져올 수 있음)
+    progress_bar_width = 30  # 진행 상황 막대의 길이
+
+    for i in [71,75]:
         test_url = f"https://giftedmbti.tistory.com/{i}"
 
         for attempt in range(max_attempts):
             try:
+                # 현재 진행 중인 블로그 정보 출력
+                logging.info(f"Processing {i}/{total_blogs} - Attempt {attempt + 1}/{max_attempts}")
+
                 blog_migration_automator(test_url)
+                success_count += 1
                 break  # 성공하면 루프 종료
             except Exception as e:
                 logging.error(f"Error during blog migration: {str(e)}")
@@ -85,7 +99,12 @@ if __name__ == "__main__":
                     # 최대 시도 횟수를 초과하면 실패한 URL을 기록
                     failed_urls.append((test_url, str(e)))
 
+    # 전체 진행 상황 출력
+    success_percentage = (success_count / total_blogs) * 100
+    logging.info(f"Total Success: {success_count}/{total_blogs} ({success_percentage:.2f}%)")
+
+    
+
     # 실패한 URL과 에러 사유 출력
     for url, error_reason in failed_urls:
         print(f"Failed URL: {url}, Error Reason: {error_reason}")
-

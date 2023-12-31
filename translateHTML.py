@@ -3,6 +3,7 @@ from bs4 import BeautifulSoup
 
 # Google Translate API의 번역기 초기화
 translator = Translator()
+translator.raise_Exception = True
 
 def translate_html(html_doc, dest_language='en'):
     soup = BeautifulSoup(html_doc, 'html.parser')
@@ -112,4 +113,4 @@ html_doc = """
 # HTML 문서 번역
 #translated_html = translate_html(html_doc)
 
-#print(translated_html)
+##print(translated_html)

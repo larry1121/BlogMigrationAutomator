@@ -33,20 +33,23 @@ def uploadToWordpress(blog_url,translated_html):
 
 
   load_dotenv(verbose=True)
+  WP_URL = os.getenv('WP_URL')
+  WP_USERNAME = os.getenv('WP_USERNAME')
+  WP_PASSWORD = os.getenv('WP_PASSWORD')
 
   
 
-  if config.DEST_LANG == "en":
-      WP_URL = os.getenv('WP_URL')
-      WP_USERNAME = os.getenv('WP_USERNAME')
-      WP_PASSWORD = os.getenv('WP_PASSWORD')
-  elif config.DEST_LANG == "ja":
-      WP_URL = os.getenv('JP_WP_URL')
-      WP_USERNAME = os.getenv('JP_WP_USERNAME')
-      WP_PASSWORD = os.getenv('JP_WP_PASSWORD')
-  else:
-    # 다른 언어에 대한 처리
-      raise ValueError("Unsupported DEST_LANG value")
+  # if config.DEST_LANG == "en":
+  #     WP_URL = os.getenv('WP_URL')
+  #     WP_USERNAME = os.getenv('WP_USERNAME')
+  #     WP_PASSWORD = os.getenv('WP_PASSWORD')
+  # elif config.DEST_LANG == "ja":
+  #     WP_URL = os.getenv('JP_WP_URL')
+  #     WP_USERNAME = os.getenv('JP_WP_USERNAME')
+  #     WP_PASSWORD = os.getenv('JP_WP_PASSWORD')
+  # else:
+  #   # 다른 언어에 대한 처리
+  #     raise ValueError("Unsupported DEST_LANG value")
 
   status = 'draft' #즉시발행：publish, 임시저장：draft
 
@@ -65,7 +68,7 @@ def uploadToWordpress(blog_url,translated_html):
   ImageCount = 0
   post_title = remove_emoji(str(BlogMetaInfo['title']))
   ImageName = f"{sanitize_filename(post_title)}_{ImageCount}"
-  filename=f"{ImageName}.jpg"  #이미지 파일이름
+  filename=f"{ImageName}.webp"  #이미지 파일이름
   folder_path=os.path.join(config.save_dir_path, f"{sanitize_filename(post_title)}")
   filepath=os.path.join(folder_path, filename)  # Save as JPG format
 
