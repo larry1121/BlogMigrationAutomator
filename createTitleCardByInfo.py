@@ -4,7 +4,7 @@ import config
 from remove_emoji import remove_emoji
 from config import BORDER_COLOR, BORDER_WIDTH, DEST_LANG,  IMAGE_SIZE, FONT_PATH, TEXT_COLOR, BACKGROUND_COLOR, TITLE_BLOG_NAME_FONT_SIZE
 from sanitize_filename import sanitize_filename
-
+import unicodedata
 from PIL import ImageFont
 from PIL import ImageFont
 
@@ -37,6 +37,47 @@ def calculate_font_size(font_path, text, max_size, min_size, image_size):
 
     return font, font_size
 
+def is_japanese(text):
+    for char in text:
+        if 'CJK' in unicodedata.name(char, ''):
+            return True
+    return False
+
+def split_text(post_title, max_line_length,font,is_japanese=True):
+    text_lines = []
+    current_line = ""
+    print(f"is_japanese = {is_japanese}")
+
+    if is_japanese:
+
+
+      for char in post_title:
+        test_line = current_line + char
+        test_width, _ = font.getsize(test_line)
+
+        if test_width > max_line_length:
+            text_lines.append(current_line)
+            
+            current_line = char
+        else:
+            current_line = test_line
+
+        
+
+    else:
+        words = post_title.split()
+        for word in words:
+            test_line = current_line + " " + word if current_line else word
+            test_width, _ = font.getsize(test_line)
+            if test_width <= max_line_length:
+                current_line = test_line
+            else:
+                text_lines.append(current_line)
+                current_line = word
+        if current_line:
+            text_lines.append(current_line)
+
+    return text_lines
 
 def createTitleCardByInfo(BlogMetaInfo):
     post_title = remove_emoji(str(BlogMetaInfo['title']))
@@ -65,23 +106,24 @@ def createTitleCardByInfo(BlogMetaInfo):
     font, font_size = calculate_font_size(font_path, post_title, max_font_size, min_font_size,IMAGE_SIZE)
     text_width, text_height = font.getsize(post_title)
     
-
+    max_line_length = 0.8 * IMAGE_SIZE[0]
 
     # 텍스트를 여러 줄로 분할
-    text_lines = []
-    max_line_length = 0.8 * IMAGE_SIZE[0]
-    current_line = ""
-    words = post_title.split()
-    for word in words:
-        test_line = current_line + " " + word if current_line else word
-        test_width, _ = font.getsize(test_line)
-        if test_width <= max_line_length:
-            current_line = test_line
-        else:
-            text_lines.append(current_line)
-            current_line = word
-    if current_line:
-        text_lines.append(current_line)
+    text_lines = split_text(post_title, max_line_length,font, is_japanese(post_title))
+
+    
+    # current_line = ""
+    # words = post_title.split()
+    # for word in words:
+    #     test_line = current_line + " " + word if current_line else word
+    #     test_width, _ = font.getsize(test_line)
+    #     if test_width <= max_line_length:
+    #         current_line = test_line
+    #     else:
+    #         text_lines.append(current_line)
+    #         current_line = word
+    # if current_line:
+    #     text_lines.append(current_line)
     # 기능 분할 필요
 
     # 왼쪽 상단의 블로그 이름의 폰트 크기 적용
@@ -124,4 +166,4 @@ def createTitleCardByInfo(BlogMetaInfo):
 
 if __name__ == "__main__":
     # Test with different blog names and post titles
-    createTitleCardByInfo({'site_name': 'giftedmbti', 'title': '불건강 estj에게 해주고 싶은 말'})
+    createTitleCardByInfo({'site_name': 'giftedmbti', 'title': '[MBTI] INTJとINTPの友情の互換性：お互いをよりよく理解する方法を見つけてください！'})

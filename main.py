@@ -8,11 +8,11 @@ from config import DEST_LANG
 from cut_before_first_a_tag import cut_before_first_a_tag
 from generateCardnewsTitleImageByUrl import generateCardnewsTitleImageByUrl
 from getBlogHTMLContent import getBlogHTMLContent
-
 from translateHTML import translate_html
 from uploadToWordpress import uploadToWordpress
 
-
+# 로깅 설정
+logging.basicConfig(level=logging.INFO)  # INFO 레벨 이상의 로그를 출력
 
 # URL 유효성 검사 함수
 def is_valid_url(url):
@@ -38,23 +38,26 @@ def blog_migration_automator(blog_url):
         return
 
     try:
+        # 블로그 컨텐츠 가져오기
+        logging.info("Getting blog content...")
         blog_content = getBlogHTMLContent(blog_url)
-        translated_html = translate_html(cut_before_first_a_tag(blog_content),DEST_LANG)
+
+        # HTML 번역
+        logging.info("Translating HTML content...")
+        translated_html = translate_html(cut_before_first_a_tag(blog_content), DEST_LANG)
+
+        # 카드 뉴스 제목 이미지 생성
+        logging.info("Generating card news title image...")
         generateCardnewsTitleImageByUrl(blog_url)
+
+        # WordPress에 업로드
+        logging.info("Uploading to WordPress...")
         uploadToWordpress(blog_url, translated_html)
+
+        logging.info("Blog migration completed successfully.")
     except Exception as e:
         logging.error(f"Error during blog migration: {str(e)}")
 
 if __name__ == "__main__":
-    test_url = "https://giftedmbti.tistory.com/54"
+    test_url = "https://giftedmbti.tistory.com/13"
     blog_migration_automator(test_url)
-
-    # for i in range(72, 73):
-    #   url = f"https://giftedmbti.tistory.com/{i}"
-    #   blog_migration_automator(url)
-
-
-# 
-# https://giftedmbti.tistory.com/70
-
-# https://giftedmbti.tistory.com/150
