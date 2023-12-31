@@ -1,7 +1,7 @@
 # OpenAI(not yet)
 OPENAI_API_KEY = 'sk-'
 
-DEST_LANG="ja"
+DEST_LANG="en"
 
 import os
 import sys

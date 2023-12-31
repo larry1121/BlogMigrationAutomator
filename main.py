@@ -38,6 +38,9 @@ def blog_migration_automator(blog_url):
         return
 
     try:
+        logging.info("------------------------------------------------------------------------------------------------")
+        logging.info(f"Processing blog migration for URL: {blog_url}")
+
         # 블로그 컨텐츠 가져오기
         logging.info("Getting blog content...")
         blog_content = getBlogHTMLContent(blog_url)
@@ -58,8 +61,31 @@ def blog_migration_automator(blog_url):
     except Exception as e:
         logging.error(f"Error during blog migration: {str(e)}")
 
+import time
+
+import time
+
 if __name__ == "__main__":
+    max_attempts = 3  # 최대 시도 횟수 설정
+    failed_urls = []
+
     for i in range(1, 101):
         test_url = f"https://giftedmbti.tistory.com/{i}"
-        blog_migration_automator(test_url)
+
+        for attempt in range(max_attempts):
+            try:
+                blog_migration_automator(test_url)
+                break  # 성공하면 루프 종료
+            except Exception as e:
+                logging.error(f"Error during blog migration: {str(e)}")
+                if attempt < max_attempts - 1:
+                    # 재시도를 위해 잠시 기다림
+                    time.sleep(5)
+                else:
+                    # 최대 시도 횟수를 초과하면 실패한 URL을 기록
+                    failed_urls.append((test_url, str(e)))
+
+    # 실패한 URL과 에러 사유 출력
+    for url, error_reason in failed_urls:
+        print(f"Failed URL: {url}, Error Reason: {error_reason}")
 

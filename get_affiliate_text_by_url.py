@@ -8,7 +8,14 @@ def get_affiliate_text_by_info(title, tag_ids):
 
     mbti_tag_0 = next((mbti for mbti, info in tag_dict.items() if info["id"] == tag_ids[0]), None)
     
-    mbti_tag_1 = next((mbti for mbti, info in tag_dict.items() if info["id"] == tag_ids[1]), "intp")
+    try:
+        mbti_tag_1 = next((mbti for mbti, info in tag_dict.items() if info["id"] == tag_ids[1]), "intp")
+    except IndexError:
+        mbti_tag_1 = "intp"
+
+    if mbti_tag_1 is None:
+        mbti_tag_1 = "intp"
+
 
 
     affiliate_text_en = f'''<h2>Discover Your MBTI-Inspired Style with Boare Morts MBTI Store's Collection 🎒👜</h2>

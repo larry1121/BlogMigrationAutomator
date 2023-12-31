@@ -34,9 +34,19 @@ def uploadToWordpress(blog_url,translated_html):
 
   load_dotenv(verbose=True)
 
-  WP_URL = os.getenv('WP_URL')
-  WP_USERNAME = os.getenv('WP_USERNAME')
-  WP_PASSWORD = os.getenv('WP_PASSWORD')
+  
+
+  if config.DEST_LANG == "en":
+      WP_URL = os.getenv('WP_URL')
+      WP_USERNAME = os.getenv('WP_USERNAME')
+      WP_PASSWORD = os.getenv('WP_PASSWORD')
+  elif config.DEST_LANG == "ja":
+      WP_URL = os.getenv('JP_WP_URL')
+      WP_USERNAME = os.getenv('JP_WP_USERNAME')
+      WP_PASSWORD = os.getenv('JP_WP_PASSWORD')
+  else:
+    # 다른 언어에 대한 처리
+      raise ValueError("Unsupported DEST_LANG value")
 
   status = 'draft' #즉시발행：publish, 임시저장：draft
 
@@ -49,7 +59,7 @@ def uploadToWordpress(blog_url,translated_html):
   
 
 
-  category_ids = [3] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
+  category_ids = [59] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
   tag_ids = extract_mbti_tags(translated_html) #태그아이디도 카테고리 아이디 찾는 방법과 동일
   
   ImageCount = 0
@@ -69,12 +79,27 @@ def uploadToWordpress(blog_url,translated_html):
     'Content-Type': 'image/png',
     'Content-Disposition': 'attachment; filename=%s' % espSequence,                                 
 }
-  res2 = requests.post(
-    url,
-    data=image_data,
-    headers=headers,
-    auth=(WP_USERNAME, WP_PASSWORD),
+  try:
+    res2 = requests.post(
+        url,
+        data=image_data,
+        headers=headers,
+        auth=(WP_USERNAME, WP_PASSWORD),
     )
+
+    res2.raise_for_status()  # 에러가 발생하면 예외를 일으킵니다.
+
+    if res2.ok:
+        print(f"이미지 업로드 성공 code:{res2.status_code}")
+        media_info = res2.json()
+        media_id = media_info['id']
+        media_url = media_info['source_url']
+    else:
+        print(f"이미지 업로드 실패 code:{res2.status_code} reason:{res2.reason} msg:{res2.text}")
+
+  except requests.exceptions.RequestException as e:
+      print(f"이미지 업로드 Request Exception: {e}")
+
   media_info = res2.json()
 
   media_id = media_info['id'] 
@@ -107,12 +132,18 @@ def uploadToWordpress(blog_url,translated_html):
   if media_id is not None:
       payload['featured_media'] = media_id
 
-  res = requests.post(urljoin(WP_URL, "wp-json/wp/v2/posts"),
-                    data=json.dumps(payload),
-                    headers={'Content-type': "application/json"},
-                    auth=(user_, pass_))
+  try:
+    res = requests.post(urljoin(WP_URL, "wp-json/wp/v2/posts"),
+                        data=json.dumps(payload),
+                        headers={'Content-type': "application/json"},
+                        auth=(user_, pass_))
 
-  if res.ok:
-      print(f"성공 code:{res.status_code}")    
-  else:
-      print(f"실패 code:{res.status_code} reason:{res.reason} msg:{res.text}")
+    res.raise_for_status()  # 에러가 발생하면 예외를 일으킵니다.
+
+    if res.ok:
+        print(f"성공 code:{res.status_code}")
+    else:
+        print(f"실패 code:{res.status_code} reason:{res.reason} msg:{res.text}")
+
+  except requests.exceptions.RequestException as e:
+    print(f"Request Exception: {e}")

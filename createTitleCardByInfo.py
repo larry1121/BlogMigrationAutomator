@@ -1,4 +1,4 @@
-from PIL import Image, ImageDraw, ImageFont
+from PIL import Image, ImageDraw, ImageFont, WebPImagePlugin
 import os
 import config
 from remove_emoji import remove_emoji
@@ -157,9 +157,10 @@ def createTitleCardByInfo(BlogMetaInfo):
             
 
 
-        filename = os.path.join(directory_path, f"{post_title_sanitized}_0.jpg")
-        image.save(filename, format="JPEG")
-        print(f"Title Image : {post_title_sanitized}_0.jpg 저장 완료\n\n")
+        # 이미지 저장 부분 수정
+        filename = os.path.join(directory_path, f"{post_title_sanitized}_0.webp")
+        image.save(filename, format="WEBP")
+        print(f"Title Image : {post_title_sanitized}_0.webp 저장 완료\n\n")
     except OSError as e:
         print(f"파일 저장 오류: {e} ,cwd : {os.getcwd()}")
         
