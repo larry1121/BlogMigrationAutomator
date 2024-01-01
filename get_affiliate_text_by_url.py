@@ -75,10 +75,7 @@ def get_affiliate_text_by_info(title, tag_ids):
     <p>Boare Morts MBTI Store boasts a remarkable <strong>97.1%</strong> positive feedback and over <strong>5675</strong> followers, a testament to their popularity among fashionistas and MBTI enthusiasts. Be part of this satisfied customer base and elevate your fashion game.</p>
 
     <h2>Featured Products: click to get!!</h2>
-    
     {get_ali_afil_image_html()}
-
-
     <h2>Why You Should Grab These MBTI-inspired Bags:</h2>
     <p>Boare Morts MBTI Store products are a fusion of fashion-forward design and budget-friendly pricing. Just as <strong>{mbti_tag_0}</strong>s and <strong>{mbti_tag_1}</strong>s can form a unique and fulfilling relationship, these bags offer a unique way to express your personality through fashion.</p>
 
@@ -97,9 +94,7 @@ def get_affiliate_text_by_info(title, tag_ids):
 <p>Boare Morts MBTI Storeは驚異的な<strong>97.1%</strong>の好意的なフィードバックと<strong>5675</strong>以上のフォロワーを誇り、ファッショニスタやMBTI愛好者の間での人気の証です。この満足のいく顧客ベースの一員になり、あなたのファッションゲームを向上させましょう。</p>
 
 <h2>注目の商品: クリックして入手!!</h2>
-
 {get_ali_afil_image_html()}
-
 <h2>これらのMBTIにインスパイアされたバッグを手に入れるべき理由：</h2>
 <p>Boare Morts MBTI Storeの製品はファッションフォワードなデザインと予算に優しい価格の融合です。まるで<strong>{mbti_tag_0}</strong>や<strong>{mbti_tag_1}</strong>がユニークで充実した関係を形成できるように、これらのバッグはファッションを通じて個性を表現するユニークな方法を提供します。</p>
 
