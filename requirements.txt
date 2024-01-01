@@ -1,5 +1,6 @@
 Pillow==9.5.0
 emoji
 instabot
+tqdm
 python-dotenv
 googletrans==4.0.0-rc1

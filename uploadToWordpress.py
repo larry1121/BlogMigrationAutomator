@@ -93,15 +93,15 @@ def uploadToWordpress(blog_url,translated_html):
     res2.raise_for_status()  # 에러가 발생하면 예외를 일으킵니다.
 
     if res2.ok:
-        print(f"이미지 업로드 성공 code:{res2.status_code}")
+        print(f"TitleImage 업로드 성공 code:{res2.status_code}")
         media_info = res2.json()
         media_id = media_info['id']
         media_url = media_info['source_url']
     else:
-        print(f"이미지 업로드 실패 code:{res2.status_code} reason:{res2.reason} msg:{res2.text}")
+        print(f"TitleImage 업로드 실패 code:{res2.status_code} reason:{res2.reason} msg:{res2.text}")
 
   except requests.exceptions.RequestException as e:
-      print(f"이미지 업로드 Request Exception: {e}")
+      print(f"TitleImage 업로드 Request Exception: {e}")
 
   media_info = res2.json()
 
@@ -144,7 +144,17 @@ def uploadToWordpress(blog_url,translated_html):
     res.raise_for_status()  # 에러가 발생하면 예외를 일으킵니다.
 
     if res.ok:
-        print(f"성공 code:{res.status_code}")
+         
+        
+
+        # JSON으로 디코딩하여 객체로 반환
+        try:
+            json_data = res.json()
+            print(f"post 업로드 성공 code : {res.status_code} link : {json_data['guid']['raw']} generated_slug : {json_data['generated_slug']}")
+            
+        except json.JSONDecodeError:
+            print("Response is not in JSON format.")
+        
     else:
         print(f"실패 code:{res.status_code} reason:{res.reason} msg:{res.text}")
 
