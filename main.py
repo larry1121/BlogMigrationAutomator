@@ -44,4 +44,5 @@ def main(start_i, end_i):
 
 if __name__ == "__main__":
     # Example: Run main for URLs in the range [71, 75]
-    main(101, 101)
+    main(1,1)
+    
