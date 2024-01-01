@@ -33,23 +33,23 @@ def uploadToWordpress(blog_url,translated_html):
 
 
   load_dotenv(verbose=True)
-  WP_URL = os.getenv('WP_URL')
-  WP_USERNAME = os.getenv('WP_USERNAME')
-  WP_PASSWORD = os.getenv('WP_PASSWORD')
+  # WP_URL = os.getenv('WP_URL')
+  # WP_USERNAME = os.getenv('WP_USERNAME')
+  # WP_PASSWORD = os.getenv('WP_PASSWORD')
 
   
 
-  # if config.DEST_LANG == "en":
-  #     WP_URL = os.getenv('WP_URL')
-  #     WP_USERNAME = os.getenv('WP_USERNAME')
-  #     WP_PASSWORD = os.getenv('WP_PASSWORD')
-  # elif config.DEST_LANG == "ja":
-  #     WP_URL = os.getenv('JP_WP_URL')
-  #     WP_USERNAME = os.getenv('JP_WP_USERNAME')
-  #     WP_PASSWORD = os.getenv('JP_WP_PASSWORD')
-  # else:
-  #   # 다른 언어에 대한 처리
-  #     raise ValueError("Unsupported DEST_LANG value")
+  if config.DEST_LANG == "en":
+      WP_URL = os.getenv('WP_URL')
+      WP_USERNAME = os.getenv('WP_USERNAME')
+      WP_PASSWORD = os.getenv('WP_PASSWORD')
+  elif config.DEST_LANG == "ja":
+      WP_URL = os.getenv('JP_WP_URL')
+      WP_USERNAME = os.getenv('JP_WP_USERNAME')
+      WP_PASSWORD = os.getenv('JP_WP_PASSWORD')
+  else:
+    # 다른 언어에 대한 처리
+      raise ValueError("Unsupported DEST_LANG value")
 
   status = 'draft' #즉시발행：publish, 임시저장：draft
 

@@ -18,7 +18,53 @@ def get_affiliate_text_by_info(title, tag_ids):
 
 
 
-    affiliate_text_en = f'''<h2>Discover Your MBTI-Inspired Style with Boare Morts MBTI Store's Collection 🎒👜</h2>
+    Korean_fav_affiliate_text_en =f'''<h2>Explore Popular MBTI-Influenced Fashion Finds for Korean Shoppers on AliExpress 🛍️👗</h2>
+
+<p>Welcome, <em>fashion savvy</em> and <em>MBTI enthusiasts</em>! After delving into the world of <strong>{title}</strong>, let's explore how MBTI influences fashion trends among Korean shoppers. Discover an array of stylish, affordable clothing on AliExpress that resonates with your MBTI personality. Let's check out these top picks!</p>
+
+<h3>Why Shop for MBTI-Influenced Fashion on AliExpress?</h3>
+<p>Combining the traits of <strong>{mbti_tag_0}</strong> and <strong>{mbti_tag_1}</strong>, AliExpress offers a unique collection of fashion items that reflect your personality. Find the perfect balance of style and individuality with a range of clothing options suited for MBTI enthusiasts. Plus, take advantage of AliExpress's unbeatable prices and deals!</p>
+
+<h3>Customer Favorites:</h3>
+<p>These handpicked items have garnered high ratings and are favorites among Korean customers for their style and quality. With thousands of satisfied shoppers, you're joining a trendy and discerning community. Upgrade your wardrobe with confidence.</p>
+
+<h2>Featured Products: Click to Shop!</h2>
+
+{get_ali_afil_image_html()}
+
+<h2>Discover the Perfect Match for Your MBTI Type:</h2>
+<p>AliExpress's selection not only showcases the latest fashion trends but also offers a unique way to express your MBTI personality through clothing. From casual wear to formal attire, find pieces that speak to you.</p>
+
+<h2>Conclusion:</h2>
+<p>For MBTI enthusiasts and style-conscious shoppers, AliExpress is your go-to destination for fashion that aligns with your personality. Embrace this chance to transform your wardrobe with MBTI-inspired fashion. Click, shop, and make a statement with your style!</p>
+ '''
+    Korean_fav_affiliate_text_ja =f'''<h2>AliExpressで韓国のショッパーに人気のMBTIインスパイアされたファッションを探索しよう 🛍️👗</h2>
+
+<p>ファッション好きとMBTIファンの皆さん、ようこそ！<strong>{title}</strong>の世界を深く探求した後、MBTIが韓国のショッパーのファッショントレンドにどのように影響を与えるかを探りましょう。あなたのMBTIパーソナリティに響くスタイリッシュで手頃な価格の服をAliExpressで発見しましょう。これらのトップピックをチェックしてみましょう！</p>
+
+<h3>なぜAliExpressでMBTIインスパイアされたファッションをショッピングするのか？</h3>
+<p><strong>{mbti_tag_0}</strong>と<strong>{mbti_tag_1}</strong>の特性を組み合わせるように、AliExpressはあなたの個性を反映したユニークなファッションアイテムのコレクションを提供します。MBTI愛好者に適した多様な服装オプションで、スタイルと個性の完璧なバランスを見つけてください。さらに、AliExpressの値打ちある価格とお得な取引を活用しましょう！</p>
+
+<h3>お客様のお気に入り：</h3>
+<p>これらの厳選されたアイテムは高い評価を受け、スタイルと品質で韓国の顧客に人気です。何千もの満足したショッパーの中に加わり、あなたのワードローブを自信を持ってアップグレードしましょう。</p>
+
+<h2>注目の商品：ショッピングはこちらから！</h2>
+
+{get_ali_afil_image_html()}
+
+<h2>あなたのMBTIタイプにぴったりのアイテムを発見しましょう：</h2>
+<p>AliExpressのセレクションは、最新のファッショントレンドを披露するだけでなく、服を通じてあなたのMBTIパーソナリティを表現するユニークな方法を提供します。カジュアルウェアからフォーマルなアタイアまで、あなたに語りかけるピースを見つけましょう。</p>
+
+<h2>結論：</h2>
+<p>MBTIに興味があり、スタイルを意識するショッパーにとって、AliExpressはあなたの個性に合ったファッションを見つけるための最適な場所です。この機会を活用して、MBTIインスパイアされたファッションであなたのワードローブを変革しましょう。クリックしてショップし、あなたのスタイルで大きな印象を残しましょう！</p>
+ '''
+
+
+    
+
+
+
+    Boare_Morts_affiliate_text_en = f'''<h2>Discover Your MBTI-Inspired Style with Boare Morts MBTI Store's Collection 🎒👜</h2>
 
     <p>Welcome, <em>fashion enthusiasts</em> and <em>MBTI aficionados</em>! Following our exploration of <strong>{title}</strong>, it's time to discover how your MBTI type can influence your fashion choices. At Boare Morts MBTI Store, you'll find trendy, chic, and uniquely designed bags that perfectly complement your personality. Let's dive into their exciting collection!</p>
 
@@ -40,7 +86,7 @@ def get_affiliate_text_by_info(title, tag_ids):
     <p>For those intrigued by MBTI and passionate about fashion, Boare Morts MBTI Store is your ultimate destination. Embrace the opportunity to redefine your fashion identity. Click, shop, and let your style speak volumes!</p>'''
     
 
-    affiliate_text_ja = f'''<h2>Boare Morts MBTI StoreのコレクションでMBTIにインスパイアされたスタイルを発見しよう 🎒👜</h2>
+    Boare_Morts_affiliate_text_ja = f'''<h2>Boare Morts MBTI StoreのコレクションでMBTIにインスパイアされたスタイルを発見しよう 🎒👜</h2>
 
 <p>ようこそ、<em>ファッション愛好者</em>および<em>MBTI愛好者</em>の皆さん！私たちが<strong>{title}</strong>を探求した後、MBTIタイプがあなたのファッションの選択にどのように影響を与えるかを発見する時がきました。Boare Morts MBTI Storeでは、あなたの個性に完璧に合ったトレンディでシックなデザインのバッグを見つけることができます。さあ、彼らのエキサイティングなコレクションに飛び込みましょう！</p>
 
@@ -62,7 +108,7 @@ def get_affiliate_text_by_info(title, tag_ids):
 '''
 
 
-    return affiliate_text_en if DEST_LANG == 'en' else affiliate_text_ja
+    return Korean_fav_affiliate_text_en if DEST_LANG == 'en' else Korean_fav_affiliate_text_ja
 
 
 # Example usage:
