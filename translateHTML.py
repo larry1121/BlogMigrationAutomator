@@ -1,9 +1,26 @@
+from dotenv import load_dotenv
 from googletrans import Translator
 from bs4 import BeautifulSoup
+from google.cloud import translate_v2 as translate
+import os
 
-# Google Translate API의 번역기 초기화
-translator = Translator()
-translator.raise_Exception = True
+load_dotenv(verbose=True)
+# 본인의 API 키로 대체해주세요.
+api_key_path = os.getenv('GT_API_KEY_PATH')
+# Set the environment variable for the API key
+os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = api_key_path
+
+# 인증을 위해 API 키를 사용하여 클라이언트를 설정합니다.
+client = translate.Client()
+
+
+
+
+# # Google Translate API의 번역기 초기화
+# translator = Translator()
+# translator.raise_Exception = True
+
+
 
 def translate_html(html_doc, dest_language='en'):
     soup = BeautifulSoup(html_doc, 'html.parser')
@@ -11,11 +28,13 @@ def translate_html(html_doc, dest_language='en'):
     # 모든 텍스트 노드를 찾아 번역
     for element in soup.find_all(text=True):
         if element.strip():  # 공백이 아닌 텍스트에 대해서만 번역
-            translated_text = translator.translate(element, dest=dest_language).text
-            element.replace_with(translated_text)
-
+            translated_text = client.translate(element, target_language=dest_language)
+            element.replace_with(translated_text['translatedText'])
+            
     # 번역된 HTML 반환
     return str(soup)
+
+
 
 # 예제 HTML 문서
 html_doc = """
@@ -111,6 +130,6 @@ html_doc = """
 """
 
 # HTML 문서 번역
-#translated_html = translate_html(html_doc)
+# translated_html = translate_html(html_doc,'ja')
 
-##print(translated_html)
+# print(translated_html)
