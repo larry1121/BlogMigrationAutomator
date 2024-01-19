@@ -43,6 +43,6 @@ def main(start_i, end_i):
         print(f"Failed URL: {url}, Error Reason: {error_reason}")
 
 if __name__ == "__main__":
-    # Example: Run main for URLs in the range [71, 75]
-    main(1,100)
+    # Example: Run main for URLs in the range [84, 100]
+    main(84,84)
     
