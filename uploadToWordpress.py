@@ -62,7 +62,7 @@ def uploadToWordpress(blog_url,translated_html):
   
 
 
-  category_ids = [2] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
+  category_ids = [59] #카테고리 아이디는 글/카테고리/ 해당카테고리에 커서를 가져가면 하다나에 카테고리 아이디값이 나온다. 숫자다
   tag_ids = extract_mbti_tags(translated_html) #태그아이디도 카테고리 아이디 찾는 방법과 동일
   
   ImageCount = 0

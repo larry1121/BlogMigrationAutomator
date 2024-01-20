@@ -83,7 +83,7 @@ def get_ali_afil_image_html():
     <div style="text-align: center; padding: 5px;">レトロなややフレアジーンズ 女性用 春/夏 ニッチデザイン ワイドレッグパンツ ハイウエスト スリム見え ショートエクストラロングパンツ</div>
 </a>'''
 
-    return kor_fav_ali_html_code_ja
+    return kor_fav_ali_html_code_en
 
 # # Example usage
 # html_code = get_ali_afil_image_html()
